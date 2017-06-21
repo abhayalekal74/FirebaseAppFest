@@ -10,46 +10,16 @@ import java.util.ArrayList;
  */
 public class User implements Parcelable{
     public String email;
+    public String uid;
     public String notificationToken;
     public ArrayList<StockObject> stocksBought;
     public ArrayList<User> usersFollowing;
 
-    public User(Parcel in) {
-        email = in.readString();
-        notificationToken = in.readString();
-        stocksBought = in.createTypedArrayList(StockObject.CREATOR);
-        usersFollowing = in.createTypedArrayList(User.CREATOR);
-    }
-
-    public User(String email, String token) {
+    public User(String email, String token, String uid) {
         this.email = email;
         this.notificationToken = token;
+        this.uid = uid;
     }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(email);
-        dest.writeString(notificationToken);
-        dest.writeTypedList(stocksBought);
-        dest.writeTypedList(usersFollowing);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 
     @Override
     public boolean equals(Object o) {
@@ -66,4 +36,38 @@ public class User implements Parcelable{
     public int hashCode() {
         return email != null ? email.hashCode() : 0;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.email);
+        dest.writeString(this.uid);
+        dest.writeString(this.notificationToken);
+        dest.writeTypedList(this.stocksBought);
+        dest.writeTypedList(this.usersFollowing);
+    }
+
+    protected User(Parcel in) {
+        this.email = in.readString();
+        this.uid = in.readString();
+        this.notificationToken = in.readString();
+        this.stocksBought = in.createTypedArrayList(StockObject.CREATOR);
+        this.usersFollowing = in.createTypedArrayList(User.CREATOR);
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }
