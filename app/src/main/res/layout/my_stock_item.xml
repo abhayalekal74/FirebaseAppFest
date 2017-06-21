@@ -39,24 +39,32 @@
 
             android:text="Opening Value"/>
 
-        <ImageView
-            android:id="@+id/profitIndicator"
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-
-            android:layout_toRightOf="@id/openingValue"
-            android:layout_weight="1"/>
-
-        <TextView
-            android:id="@+id/profitValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_toRightOf="@+id/profitIndicator"
+            android:orientation="horizontal"
             android:layout_weight="1"
+            >
 
-            android:text="Profit/Loss"/>
+            <ImageView
+                android:id="@+id/profitIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/openingValue"
+                />
+
+            <TextView
+                android:id="@+id/profitValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/profitIndicator"
+
+                android:text="Profit/Loss"/>
+
+        </LinearLayout>
 
 
     </LinearLayout>

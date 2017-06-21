@@ -21,7 +21,7 @@ public class MyStocksDataBinder extends DataBinder<MyStocksDataBinder.ViewHolder
     ArrayList<StockObject> stockList;
     Boolean isWatchList;
 
-    public MyStocksDataBinder(DataBindAdapter dataBindAdapter, Context context, Boolean isWatchList, ArrayList<StockObject> stockList) {
+    public MyStocksDataBinder(DataBindAdapter dataBindAdapter, Context context, ArrayList<StockObject> stockList, String listType) {
         super(dataBindAdapter);
         this.context = context;
         this.stockList = stockList;
@@ -48,11 +48,16 @@ public class MyStocksDataBinder extends DataBinder<MyStocksDataBinder.ViewHolder
            stockName.setText("Stock Name");
             currentValue.setText("Current Value");
             openingValue.setText("Opening Value");
+            profitStatus.setText("Status");
 
         }
         else
         {
-
+            stockName.setText(stockList.get(position).name);
+            currentValue.setText(stockList.get(position).currentValue+"");
+            openingValue.setText(stockList.get(position).openValue+"");
+            float profit = stockList.get(position).currentValue - stockList.get(position).openValue;
+            profitStatus.setText(profit+"");
         }
         holder.myStocksLayout.addView(view);
 
