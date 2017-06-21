@@ -20,9 +20,10 @@ public class NothingToShowDataBinder extends DataBinder<NothingToShowDataBinder.
     private final Context context;
     String listType;
 
-    public NothingToShowDataBinder(DataBindAdapter dataBindAdapter, Context context, String ListType) {
+    public NothingToShowDataBinder(DataBindAdapter dataBindAdapter, Context context, String listType) {
         super(dataBindAdapter);
         this.context = context;
+        this.listType = listType;
     }
 
     @Override

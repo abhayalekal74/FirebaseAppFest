@@ -29,7 +29,7 @@ public class FirebasePresenter {
         this.context = context;
         keepSynced();
         gson = new Gson();
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+     //   FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 
     private void keepSynced() {
