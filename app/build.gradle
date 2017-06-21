@@ -21,7 +21,7 @@ android {
         config {
             keyAlias 'one-learn'
             keyPassword 'onelearn123'
-            storeFile file('/Users/faheem/.android/debug.keystore')
+            storeFile file('/Users/abhayalekal/gup/one.keystore')
             storePassword 'onelearn123'
         }
     }

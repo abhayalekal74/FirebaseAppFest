@@ -34,11 +34,29 @@ public class FirebasePresenter {
         keepSynced();
         gson = new Gson();
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 
     private void keepSynced() {
         getUsersRef().keepSynced(true);
+        getUsersRef().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    User user = gson.fromJson(gson.toJson(userSnapshot.getValue()), User.class);
+                    if (users == null) {
+                        users = new ArrayList<User>();
+                    }
+                    if (!users.contains(user)) {
+                        users.add(user);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
