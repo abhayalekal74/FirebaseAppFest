@@ -40,8 +40,17 @@ public class User implements Parcelable{
         }
     };
 
+    public User() {
+
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return uid.equals(((User)obj).uid);
+    }
+
     public int hashCode() {
-        return email != null ? email.hashCode() : 0;
+        return uid != null ? uid.hashCode() : 0;
     }
 
     @Override

@@ -16,7 +16,7 @@ public class StockObject implements Parcelable {
     public int boughtCount;
     public int soldCount;
 
-    protected StockObject(Parcel in) {
+    public StockObject(Parcel in) {
         id = in.readString();
         name = in.readString();
         currentValue = in.readFloat();
@@ -38,6 +38,10 @@ public class StockObject implements Parcelable {
             return new StockObject[size];
         }
     };
+
+    public StockObject() {
+
+    }
 
     @Override
     public int describeContents() {

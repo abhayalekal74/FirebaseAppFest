@@ -6,11 +6,14 @@ import android.util.Log;
 import com.example.abhayalekal.firebaseappfest.Objects.StockObject;
 import com.example.abhayalekal.firebaseappfest.Objects.User;
 import com.example.abhayalekal.firebaseappfest.util.Util;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,12 +26,14 @@ public class FirebasePresenter {
     private static ArrayList<StockObject> stocks;
     private static ArrayList<User> users;
     private static Gson gson;
+    private static String userId;
     private final Context context;
 
     public FirebasePresenter(Context context) {
         this.context = context;
         keepSynced();
         gson = new Gson();
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 
@@ -113,8 +118,25 @@ public class FirebasePresenter {
                 @Override
                 public void success(DataSnapshot dataSnapshot) {
                     if (dataSnapshot != null) {
-
+                        JsonElement jsonElement = gson.toJsonTree(dataSnapshot.getValue());
+                        Log.d("fetchFollowing", jsonElement.toString());
+                        ArrayList<User> followingList = null;
+                        for (DataSnapshot following : dataSnapshot.getChildren()) {
+                            User user = new User();
+                            user.uid = following.getKey();
+                            int index = users.indexOf(user);
+                            User user1 = users.get(index);
+                            if (followingList == null) {
+                                followingList = new ArrayList<User>();
+                            }
+                            followingList.add(user1);
+                        }
+                        if (followingList != null && followingList.size() > 0) {
+                            peopleFetchListener.success(followingList);
+                            return;
+                        }
                     }
+                    peopleFetchListener.failure();
                 }
 
                 @Override
@@ -132,7 +154,24 @@ public class FirebasePresenter {
             getSnapshot(getWatchlistRef(), new SnapshotListener() {
                 @Override
                 public void success(DataSnapshot dataSnapshot) {
-                    // TODO implement
+                    JsonElement jsonElement = gson.toJsonTree(dataSnapshot.getValue());
+                    Log.d("fetchWatchList", jsonElement.toString());
+                    ArrayList<StockObject> watchList = null;
+                    for (DataSnapshot watching : dataSnapshot.getChildren()) {
+                        StockObject stockObject = new StockObject();
+                        stockObject.id = watching.getKey();
+                        int index = stocks.indexOf(stockObject);
+                        StockObject stock = stocks.get(index);
+                        if (watchList == null) {
+                            watchList = new ArrayList<>();
+                        }
+                        watchList.add(stock);
+                    }
+                    if (watchList != null && watchList.size() > 0) {
+                        stocksFetchListener.success(watchList);
+                        return;
+                    }
+                    stocksFetchListener.failure();
                 }
 
                 @Override
@@ -150,7 +189,24 @@ public class FirebasePresenter {
             getSnapshot(getBuyTransactionsRef(), new SnapshotListener() {
                 @Override
                 public void success(DataSnapshot dataSnapshot) {
-                    // TODO implement
+                    JsonElement jsonElement = gson.toJsonTree(dataSnapshot.getValue());
+                    Log.d("fetchStocksBought", jsonElement.toString());
+                    ArrayList<StockObject> boughtStocks = null;
+                    for (DataSnapshot bought : dataSnapshot.getChildren()) {
+                        StockObject stockObject = new StockObject();
+                        stockObject.id = bought.getKey();
+                        int index = stocks.indexOf(stockObject);
+                        StockObject stock = stocks.get(index);
+                        if (boughtStocks == null) {
+                            boughtStocks = new ArrayList<>();
+                        }
+                        boughtStocks.add(stock);
+                    }
+                    if (boughtStocks != null && boughtStocks.size() > 0) {
+                        stocksFetchListener.success(boughtStocks);
+                        return;
+                    }
+                    stocksFetchListener.failure();
                 }
 
                 @Override
@@ -168,7 +224,24 @@ public class FirebasePresenter {
             getSnapshot(getSellTransactionsRef(), new SnapshotListener() {
                 @Override
                 public void success(DataSnapshot dataSnapshot) {
-                    // TODO implement
+                    JsonElement jsonElement = gson.toJsonTree(dataSnapshot.getValue());
+                    Log.d("fetchStocksSold", jsonElement.toString());
+                    ArrayList<StockObject> soldStocks = null;
+                    for (DataSnapshot sold : dataSnapshot.getChildren()) {
+                        StockObject stockObject = new StockObject();
+                        stockObject.id = sold.getKey();
+                        int index = stocks.indexOf(stockObject);
+                        StockObject stock = stocks.get(index);
+                        if (soldStocks == null) {
+                            soldStocks = new ArrayList<>();
+                        }
+                        soldStocks.add(stock);
+                    }
+                    if (soldStocks != null && soldStocks.size() > 0) {
+                        stocksFetchListener.success(soldStocks);
+                        return;
+                    }
+                    stocksFetchListener.failure();
                 }
 
                 @Override
@@ -307,23 +380,33 @@ public class FirebasePresenter {
     }
 
     private DatabaseReference getFollowRef() {
-        return FirebaseDatabase.getInstance().getReference().child("follow");
+        return FirebaseDatabase.getInstance().getReference().child("follow").child(userId);
     }
 
     private DatabaseReference getBuyTransactionsRef() {
-        return FirebaseDatabase.getInstance().getReference().child("transactions").child("bought");
+        return FirebaseDatabase.getInstance().getReference().child("transactions").child(userId).child("bought");
     }
 
     private DatabaseReference getSellTransactionsRef() {
-        return FirebaseDatabase.getInstance().getReference().child("transactions").child("bought");
+        return FirebaseDatabase.getInstance().getReference().child("transactions").child(userId).child("sold");
     }
 
     private DatabaseReference getWatchlistRef() {
-        return FirebaseDatabase.getInstance().getReference().child("watchlist");
+        return FirebaseDatabase.getInstance().getReference().child("watchlist").child(userId);
     }
 
-    private void getSnapshot(DatabaseReference ref, SnapshotListener snapshotListener) {
+    private void getSnapshot(DatabaseReference ref, final SnapshotListener snapshotListener) {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                snapshotListener.success(dataSnapshot);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                snapshotListener.failure();
+            }
+        });
     }
 
     public interface StocksFetchListener {
