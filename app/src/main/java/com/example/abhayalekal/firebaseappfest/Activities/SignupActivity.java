@@ -1,4 +1,4 @@
-package com.example.abhayalekal.firebaseappfest;
+package com.example.abhayalekal.firebaseappfest.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.abhayalekal.firebaseappfest.R;
 import com.example.abhayalekal.firebaseappfest.firebase.SignInPresenter;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -21,8 +22,6 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         setViews();
     }
 
@@ -58,13 +57,19 @@ public class SignupActivity extends AppCompatActivity {
     SignInPresenter.SignInInterface signInInterface = new SignInPresenter.SignInInterface() {
         @Override
         public void onSignUpSuccess(FirebaseUser user) {
-            Intent i = new Intent(SignupActivity.this, )
+            moveToHomeActivity();
         }
 
         @Override
         public void onSignUpFailure(String error) {
-
+            Toast.makeText(SignupActivity.this, ""+error, Toast.LENGTH_SHORT).show();
         }
     };
+
+    private void moveToHomeActivity() {
+        Intent i = new Intent(SignupActivity.this, HomeActivity.class);
+        startActivity(i);
+        finish();
+    }
 
 }

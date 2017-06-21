@@ -2,7 +2,8 @@ package com.example.abhayalekal.firebaseappfest.firebase;
 
 import android.content.Context;
 
-import com.example.abhayalekal.firebaseappfest.model.Stock;
+import com.example.abhayalekal.firebaseappfest.Objects.StockObject;
+import com.example.abhayalekal.firebaseappfest.Objects.User;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class FirebasePresenter {
 
 
     public interface StocksFetchListener {
-        void success(ArrayList<Stock> stocks);
+        void success(ArrayList<StockObject> stocks);
 
         void failure();
     }

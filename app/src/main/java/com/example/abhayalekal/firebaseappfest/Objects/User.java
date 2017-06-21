@@ -10,13 +10,33 @@ import java.util.ArrayList;
  */
 public class User implements Parcelable{
     public String email;
+    public String notificationToken;
     public ArrayList<StockObject> stocksBought;
     public ArrayList<User> usersFollowing;
 
-    protected User(Parcel in) {
+    public User(Parcel in) {
         email = in.readString();
+        notificationToken = in.readString();
         stocksBought = in.createTypedArrayList(StockObject.CREATOR);
         usersFollowing = in.createTypedArrayList(User.CREATOR);
+    }
+
+    public User(String email, String token) {
+        this.email = email;
+        this.notificationToken = token;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(email);
+        dest.writeString(notificationToken);
+        dest.writeTypedList(stocksBought);
+        dest.writeTypedList(usersFollowing);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -32,14 +52,18 @@ public class User implements Parcelable{
     };
 
     @Override
-    public int describeContents() {
-        return 0;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return email != null ? email.equals(user.email) : user.email == null;
+
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(email);
-        dest.writeTypedList(stocksBought);
-        dest.writeTypedList(usersFollowing);
+    public int hashCode() {
+        return email != null ? email.hashCode() : 0;
     }
 }
