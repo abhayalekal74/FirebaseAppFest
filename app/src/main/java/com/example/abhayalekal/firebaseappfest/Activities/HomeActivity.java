@@ -1,6 +1,8 @@
 package com.example.abhayalekal.firebaseappfest.Activities;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -24,17 +26,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new FirebasePresenter(this).fetchAllStocks(new FirebasePresenter.StocksFetchListener() {
-            @Override
-            public void success(ArrayList<StockObject> stocks) {
-
-            }
-
-            @Override
-            public void failure() {
-
-            }
-        });
         setContentView(R.layout.activity_home);
        /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);*/
