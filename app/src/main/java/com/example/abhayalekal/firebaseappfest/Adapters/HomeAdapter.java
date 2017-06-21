@@ -21,6 +21,12 @@ public class HomeAdapter extends DataBindAdapter {
     private static final Integer TRENDING_LIST = 3;
     private static final Integer WATCH_LIST = 4;
     private static final Integer HEADER = 5;
+    private static final int NOTHING_TO_SHOW_IN_WATCH = 23;
+    private static final int NOTHING_TO_SHOW_IN_STOCKS = 24;
+    private static final int NOTHING_TO_SHOW_IN_TRENDING = 25;
+    private static final Integer HEADER_MY_STOCKS = 87 ;
+    private static final Integer HEADER_TRENDING = 88;
+    private static final Integer HEADER_WATCHED = 89;
     public HashMap<Integer, DataBinder> dataBinderHashMap = new HashMap<>();
     NothingToShowDataBinder nothingToShowDataBinder;
     MyStocksDataBinder watchListDataBinder;
@@ -38,59 +44,64 @@ public class HomeAdapter extends DataBindAdapter {
         this.stockList = purchasedList;
         this.listType = listType;
 
-        nothingToShowDataBinder = new NothingToShowDataBinder(this, listType);
-        watchListDataBinder = new MyStocksDataBinder(this, context, watchList, listType);
-        myStocksDataBinder = new MyStocksDataBinder(this, context, purchasedList, listType);
-        trendingDataBinder = new MyStocksDataBinder(this, context, trendingList, listType);
-        cardHeaderbinder = new CardHeaderBinder(this, listType, context);
+        NothingToShowDataBinder nothingToShowDataBinderinWatchedList = new NothingToShowDataBinder(this, "Watched List");
+        NothingToShowDataBinder nothingToShowDataBinderinMyStocks = new NothingToShowDataBinder(this, "My Stock");
+        NothingToShowDataBinder nothingToShowDataBinderinTrendingList = new NothingToShowDataBinder(this, "Trending List");
+        watchListDataBinder = new MyStocksDataBinder(this, context, watchList, "Watch List");
+        myStocksDataBinder = new MyStocksDataBinder(this, context, purchasedList, "My Stocks");
+        trendingDataBinder = new MyStocksDataBinder(this, context, trendingList, "Trending List");
+        CardHeaderBinder cardHeaderbinderWatchedList = new CardHeaderBinder(this, listType, context);
+        CardHeaderBinder cardHeaderbinderTrending = new CardHeaderBinder(this, listType, context);
+        CardHeaderBinder cardHeaderbinderMyStocks = new CardHeaderBinder(this, listType, context);
 
+        dataBinderHashMap.put(NOTHING_TO_SHOW, nothingToShowDataBinder);
+        dataBinderHashMap.put(NOTHING_TO_SHOW_IN_WATCH, nothingToShowDataBinderinWatchedList);
+        dataBinderHashMap.put(NOTHING_TO_SHOW_IN_STOCKS, nothingToShowDataBinderinMyStocks);
+        dataBinderHashMap.put(NOTHING_TO_SHOW_IN_TRENDING, nothingToShowDataBinderinTrendingList);
         dataBinderHashMap.put(NOTHING_TO_SHOW, nothingToShowDataBinder);
         dataBinderHashMap.put(MY_STOCKS, myStocksDataBinder);
         dataBinderHashMap.put(TRENDING_LIST, trendingDataBinder);
         dataBinderHashMap.put(WATCH_LIST, watchListDataBinder);
-        dataBinderHashMap.put(HEADER, cardHeaderbinder);
+        dataBinderHashMap.put(HEADER_MY_STOCKS, cardHeaderbinderMyStocks);
+        dataBinderHashMap.put(HEADER_TRENDING, cardHeaderbinderTrending);
+        dataBinderHashMap.put(HEADER_WATCHED, cardHeaderbinderWatchedList);
 
 
     }
 
     @Override
     public int getItemCount() {
-        return 6;
+        return 3 + watchList.size()+ stockList.size() + trendingList.size();
     }
 
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
-            listType = "Watch List";
-            return HEADER;
+            return HEADER_WATCHED;
         }
         if (position == 1) {
             if (watchList == null || watchList.size() == 0) {
-                listType = "Watch";
-                return NOTHING_TO_SHOW;
+                return NOTHING_TO_SHOW_IN_WATCH;
 
             } else {
                 return WATCH_LIST;
             }
         }
         if (position == 2) {
-            listType = "My Stocks";
-            return HEADER;
+
+            return HEADER_MY_STOCKS;
         } else if (position == 3) {
             if (stockList == null || stockList.size() == 0) {
-                listType = "MyStock";
-                return NOTHING_TO_SHOW;
+                return NOTHING_TO_SHOW_IN_STOCKS;
             } else {
                 return MY_STOCKS;
             }
         }
         if (position == 4) {
-            listType = "Trending List";
-            return HEADER;
+            return HEADER_TRENDING;
         } else if (position == 5) {
             if (trendingList == null || trendingList.size() == 0) {
-                listType = "Trending";
-                return NOTHING_TO_SHOW;
+                return NOTHING_TO_SHOW_IN_TRENDING;
             } else {
                 return TRENDING_LIST;
             }

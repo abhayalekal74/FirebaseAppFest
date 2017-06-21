@@ -31,7 +31,7 @@ public class NothingToShowDataBinder extends DataBinder<NothingToShowDataBinder.
 
     @Override
     public void bindViewHolder(NothingToShowDataBinder.ViewHolder holder, int position) {
-        if(listType.matches("Trending"))
+        if(listType.matches("Trending List"))
         {
             holder.pleaseSubscribe.setText("");
             holder.clickToSubscribe.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +41,7 @@ public class NothingToShowDataBinder extends DataBinder<NothingToShowDataBinder.
                 }
             });
         }
-        else if(listType.matches("MyStock"))
+        else if(listType.matches("My Stock"))
         {
             holder.pleaseSubscribe.setText("You have not invested in any stocks yet!");
             holder.clickToSubscribe.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +51,7 @@ public class NothingToShowDataBinder extends DataBinder<NothingToShowDataBinder.
                 }
             });
         }
-        else if(listType.matches("Watch"))
+        else if(listType.matches("Watch List"))
         {
             holder.pleaseSubscribe.setText("You have not added any stocks to your watch list yet!");
             holder.clickToSubscribe.setOnClickListener(new View.OnClickListener() {
