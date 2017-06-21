@@ -53,7 +53,7 @@ public class MyStockDataBinder2 extends DataBinder<MyStockDataBinder2.ViewHolder
         }
         else
         {
-            stockName.setText(stockList.get(position).name);
+            stockName.setText(stockList.get(position).id);
             currentValue.setText(stockList.get(position).currentValue+"");
             openingValue.setText(stockList.get(position).openValue+"");
             float profit = Float.parseFloat(stockList.get(position).currentValue) - Float.parseFloat(stockList.get(position).openValue);

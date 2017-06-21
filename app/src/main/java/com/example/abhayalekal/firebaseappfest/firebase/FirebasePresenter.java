@@ -76,7 +76,9 @@ public class FirebasePresenter {
                             if (stockObjects == null) {
                                 stockObjects = new ArrayList<StockObject>();
                             }
-                            stockObjects.add(stockObject);
+                            if (stockObject.id != null) {
+                                stockObjects.add(stockObject);
+                            }
                         }
                         if (stockObjects != null && stockObjects.size() > 0) {
                             stocksFetchListener.success(stockObjects);

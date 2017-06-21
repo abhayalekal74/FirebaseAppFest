@@ -3,17 +3,25 @@ package com.example.abhayalekal.firebaseappfest.Objects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by faheem on 21/06/17.
  */
 public class StockObject implements Parcelable {
+    @SerializedName("symbol")
     public String id;
-    public String name;
+    @SerializedName("ltp")
     public String currentValue;
+    @SerializedName("open")
     public String openValue;
+    @SerializedName("high")
     public String high;
+    @SerializedName("low")
     public String low;
+    @SerializedName("boughCount")
     public String boughtCount;
+    @SerializedName("soldCount")
     public String soldCount;
 
 
@@ -24,7 +32,6 @@ public class StockObject implements Parcelable {
 
     protected StockObject(Parcel in) {
         id = in.readString();
-        name = in.readString();
         currentValue = in.readString();
         openValue = in.readString();
         high = in.readString();
@@ -36,7 +43,6 @@ public class StockObject implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
-        dest.writeString(name);
         dest.writeString(currentValue);
         dest.writeString(openValue);
         dest.writeString(high);

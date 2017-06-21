@@ -41,7 +41,7 @@ public class MyStocksDataBinder extends DataBinder<MyStocksDataBinder.ViewHolder
     @Override
     public void bindViewHolder(MyStocksDataBinder.ViewHolder holder, final int position) {
 
-        holder.stockName.setText(stockList.get(position).name);
+        holder.stockName.setText(stockList.get(position).id);
         holder.currentValue.setText(stockList.get(position).currentValue+"");
         holder.openingValue.setText(stockList.get(position).openValue+"");
         float profit = Float.parseFloat(stockList.get(position).currentValue) - Float.parseFloat(stockList.get(position).openValue);
