@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+       />
+
+    <TextView
+        android:id="@+id/nothingTv"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imageView"
+        android:text="@string/nothingToShow"
+        android:textSize="30dp"/>
+
+    <TextView
+        android:id="@+id/pleaseSubscribe"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/nothingTv"
+        android:text="Nothing to show here!"
+        android:textSize="16dp"/>
+
+    <TextView
+        android:id="@+id/clickToSubscribe"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/primaryBlue"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/pleaseSubscribe"
+        android:text="@string/subscribeNow"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:textSize="10dp"/>
+
+
+</RelativeLayout>
