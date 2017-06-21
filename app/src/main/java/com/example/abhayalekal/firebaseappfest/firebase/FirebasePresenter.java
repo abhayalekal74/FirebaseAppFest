@@ -5,6 +5,9 @@ import android.content.Context;
 import com.example.abhayalekal.firebaseappfest.Objects.StockObject;
 import com.example.abhayalekal.firebaseappfest.Objects.User;
 import com.example.abhayalekal.firebaseappfest.util.Util;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -204,31 +207,31 @@ public class FirebasePresenter {
         }
     }
 
-    private String getStocksRef() {
+    private DatabaseReference getStocksRef() {
         return FirebaseDatabase.getInstance().getReference().child("stocks");
     }
 
-    private String getUsersRef() {
+    private DatabaseReference getUsersRef() {
         return FirebaseDatabase.getInstance().getReference().child("users");
     }
 
-    private String getFollowRef() {
+    private DatabaseReference getFollowRef() {
         return FirebaseDatabase.getInstance().getReference().child("follow");
     }
 
-    private String getBuyTransactionsRef() {
+    private DatabaseReference getBuyTransactionsRef() {
         return FirebaseDatabase.getInstance().getReference().child("transactions").child("bought");
     }
 
-    private String getSellTransactionsRef() {
+    private DatabaseReference getSellTransactionsRef() {
         return FirebaseDatabase.getInstance().getReference().child("transactions").child("bought");
     }
 
-    private String getWatchlistRef() {
+    private DatabaseReference getWatchlistRef() {
         return FirebaseDatabase.getInstance().getReference().child("watchlist");
     }
 
-    private void getSnapshot(String ref) {
+    private void getSnapshot(DatabaseReference ref, SnapshotListener snapshotListener) {
 
     }
 
