@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.abhayalekal.firebaseappfest.R;
 import com.google.firebase.auth.FirebaseAuth;
