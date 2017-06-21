@@ -10,11 +10,13 @@ import java.util.ArrayList;
  */
 public class User implements Parcelable{
     public String email;
+    public String uid;
     public ArrayList<StockObject> stocksBought;
     public ArrayList<User> usersFollowing;
 
     protected User(Parcel in) {
         email = in.readString();
+        uid = in.readString();
         stocksBought = in.createTypedArrayList(StockObject.CREATOR);
         usersFollowing = in.createTypedArrayList(User.CREATOR);
     }
@@ -39,6 +41,7 @@ public class User implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(email);
+        dest.writeString(uid);
         dest.writeTypedList(stocksBought);
         dest.writeTypedList(usersFollowing);
     }
