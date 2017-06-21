@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.abhayalekal.firebaseappfest.Activities.PeopleActivity;
 import com.example.abhayalekal.firebaseappfest.Objects.User;
 import com.example.abhayalekal.firebaseappfest.R;
+import com.example.abhayalekal.firebaseappfest.firebase.FirebasePresenter;
 
 import java.util.ArrayList;
 
@@ -21,10 +23,12 @@ public class PeopleAdapter extends  RecyclerView.Adapter<PeopleAdapter.ViewHolde
 
     Context context;
     ArrayList<User> users;
+    FirebasePresenter firebasePresenter;
 
-    public PeopleAdapter(Context context, ArrayList<User> users) {
+    public PeopleAdapter(Context context, ArrayList<User> users, FirebasePresenter firebasePresenter) {
         this.context = context;
         this.users = users;
+        this.firebasePresenter = firebasePresenter;
     }
 
     @Override
@@ -36,7 +40,7 @@ public class PeopleAdapter extends  RecyclerView.Adapter<PeopleAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        User user = users.get(position);
+        final User user = users.get(position);
 
         if(((PeopleActivity)context).currentUser.usersFollowing.contains(user))
         {
@@ -56,7 +60,17 @@ public class PeopleAdapter extends  RecyclerView.Adapter<PeopleAdapter.ViewHolde
             holder.followBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    firebasePresenter.follow(user, new FirebasePresenter.UserListener() {
+                        @Override
+                        public void success(User following) {
+                            Toast.makeText(context, "Followed successfully", Toast.LENGTH_SHORT).show();
+                        }
 
+                        @Override
+                        public void failure() {
+                            Toast.makeText(context, "Followed failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             });
         }

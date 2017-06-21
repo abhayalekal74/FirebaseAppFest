@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.example.abhayalekal.firebaseappfest.Adapters.PeopleAdapter;
 import com.example.abhayalekal.firebaseappfest.Objects.User;
 import com.example.abhayalekal.firebaseappfest.R;
 import com.example.abhayalekal.firebaseappfest.firebase.FirebasePresenter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 
@@ -29,9 +33,9 @@ public class PeopleActivity extends AppCompatActivity {
 
         firebasePresenter = new FirebasePresenter(PeopleActivity.this);
 
-        getAllUsers();
+        updateCurrentUserObject();
 
-        setAdapter();
+        setAdapter(firebasePresenter);
         setRecyclerView();
     }
 
@@ -56,18 +60,28 @@ public class PeopleActivity extends AppCompatActivity {
         firebasePresenter.fetchFollowing(new FirebasePresenter.PeopleFetchListener() {
             @Override
             public void success(ArrayList<User> users) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    currentUser = new User(user.getEmail(), FirebaseInstanceId.getInstance().getToken());
+                    currentUser.usersFollowing.clear();
+                    currentUser.usersFollowing.addAll(users);
 
+                    getAllUsers();
+
+                } else {
+                    Toast.makeText(PeopleActivity.this, "You are not logged in. Please logout and login again", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void failure() {
-
+                Toast.makeText(PeopleActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void setAdapter() {
-        peopleAdapter = new PeopleAdapter(PeopleActivity.this, users);
+    private void setAdapter(FirebasePresenter firebasePresenter) {
+        peopleAdapter = new PeopleAdapter(PeopleActivity.this, users, firebasePresenter);
     }
 
     private void setRecyclerView() {
