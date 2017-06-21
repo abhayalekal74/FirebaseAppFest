@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,15 @@ public class MyStocksDataBinder extends DataBinder<MyStocksDataBinder.ViewHolder
         holder.currentValue.setText(stockList.get(position).currentValue+"");
         holder.openingValue.setText(stockList.get(position).openValue+"");
         float profit = stockList.get(position).currentValue - stockList.get(position).openValue;
+        if(profit<0)
+        {
+            holder.stockStatusImage.setImageDrawable(context.getResources().getDrawable(R.drawable.expand_plus));
+        }
+        else
+        {
+            holder.stockStatusImage.setImageDrawable(context.getResources().getDrawable(R.drawable.expand_plus));
+
+        }
         holder.profitStatus.setText(profit+"");
 
         holder.investBtn.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +101,7 @@ public class MyStocksDataBinder extends DataBinder<MyStocksDataBinder.ViewHolder
 
         View investBtn;
         View watchBtn;
+        ImageView stockStatusImage;
 
         public ViewHolder(View view) {
             super(view);
@@ -103,6 +114,7 @@ public class MyStocksDataBinder extends DataBinder<MyStocksDataBinder.ViewHolder
             currentValue = (TextView) view.findViewById(R.id.currentValue);
             openingValue = (TextView) view.findViewById(R.id.openingValue);
             profitStatus = (TextView) view.findViewById(R.id.profitValue);
+            stockStatusImage = (ImageView) view.findViewById(R.id.profitIndicator);
         }
     }
 }
