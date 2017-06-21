@@ -5,11 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.abhayalekal.firebaseappfest.Objects.StockObject;
 import com.example.abhayalekal.firebaseappfest.R;
+import com.example.abhayalekal.firebaseappfest.firebase.FirebasePresenter;
 
 import java.util.ArrayList;
 
@@ -20,50 +21,88 @@ public class MyStocksDataBinder extends DataBinder<MyStocksDataBinder.ViewHolder
     Context context;
     ArrayList<StockObject> stockList;
     Boolean isWatchList;
+    FirebasePresenter firebasePresenter;
 
-    public MyStocksDataBinder(DataBindAdapter dataBindAdapter, Context context, Boolean isWatchList, ArrayList<StockObject> stockList) {
+    public MyStocksDataBinder(DataBindAdapter dataBindAdapter, Context context, ArrayList<StockObject> stockList, FirebasePresenter firebasePresenter) {
         super(dataBindAdapter);
         this.context = context;
         this.stockList = stockList;
-        this.isWatchList = isWatchList;
+        this.firebasePresenter = firebasePresenter;
     }
 
     @Override
     public MyStocksDataBinder.ViewHolder newViewHolder(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.my_stocks_list, parent, false);
+                R.layout.my_stock_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void bindViewHolder(MyStocksDataBinder.ViewHolder holder, int position) {
-        View view = View.inflate(context, R.layout.my_stock_item, null);
-        TextView stockName = (TextView) view.findViewById(R.id.stockName);
-        TextView currentValue = (TextView) view.findViewById(R.id.currentValue);
-        TextView openingValue = (TextView) view.findViewById(R.id.openingValue);
-        TextView profitStatus = (TextView) view.findViewById(R.id.profitValue);
+    public void bindViewHolder(MyStocksDataBinder.ViewHolder holder, final int position) {
 
-        if(position==0)
-        {
-           stockName.setText("Stock Name");
-            currentValue.setText("Current Value");
-            openingValue.setText("Opening Value");
+        holder.stockName.setText(stockList.get(position).name);
+        holder.currentValue.setText(stockList.get(position).currentValue+"");
+        holder.openingValue.setText(stockList.get(position).openValue+"");
+        float profit = stockList.get(position).currentValue - stockList.get(position).openValue;
+        holder.profitStatus.setText(profit+"");
 
-        }
-        else
-        {
+        holder.investBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebasePresenter.buyStock(stockList.get(position), new FirebasePresenter.StockListener() {
+                    @Override
+                    public void success(StockObject stockObject) {
+                        Toast.makeText(context, "Investment Successful", Toast.LENGTH_SHORT).show();
+                    }
 
-        }
-        holder.myStocksLayout.addView(view);
+                    @Override
+                    public void failure() {
+                        Toast.makeText(context, "Investment Failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        holder.watchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebasePresenter.watch(stockList.get(position), new FirebasePresenter.StockListener() {
+                    @Override
+                    public void success(StockObject stockObject) {
+                        Toast.makeText(context, "Added to watch list Successfully", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void failure() {
+                        Toast.makeText(context, "Couldn't add to watch list!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout myStocksLayout;
+        TextView stockName;
+        TextView currentValue;
+        TextView openingValue;
+        TextView profitStatus;
+        View root;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            myStocksLayout = (LinearLayout) itemView.findViewById(R.id.myStocksLinearLayout);
+        View investBtn;
+        View watchBtn;
+
+        public ViewHolder(View view) {
+            super(view);
+            root = view.findViewById(R.id.root);
+
+            investBtn = view.findViewById(R.id.invest_btn);
+            watchBtn = view.findViewById(R.id.watch_btn);
+
+            stockName = (TextView) view.findViewById(R.id.stockName);
+            currentValue = (TextView) view.findViewById(R.id.currentValue);
+            openingValue = (TextView) view.findViewById(R.id.openingValue);
+            profitStatus = (TextView) view.findViewById(R.id.profitValue);
         }
     }
 }

@@ -9,20 +9,41 @@
         android:supportsRtl="true"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SignupActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        <activity android:name=".Activities.SignupActivity">
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
-        <activity android:name=".PeopleActivity">
+        <activity android:name=".Activities.PeopleActivity">
         </activity>
         <activity
             android:name=".Activities.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <activity
+            android:name=".Activities.AppLauncherActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <service
+            android:name="com.example.abhayalekal.firebaseappfest.util.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="com.example.abhayalekal.firebaseappfest.util.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

@@ -36,6 +36,7 @@ public class FirebasePresenter {
         getUsersRef().keepSynced(true);
     }
 
+
     public void fetchAllStocks(final StocksFetchListener stocksFetchListener) {
         if (stocks != null) {
             stocksFetchListener.success(stocks);

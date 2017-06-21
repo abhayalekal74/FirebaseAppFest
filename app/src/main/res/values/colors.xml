@@ -15,4 +15,5 @@
     <color name="googleRed">#DD4C3B</color>
     <color name="primaryBlue">#4A89DC</color>
     <color name="white">#ffffff</color>
+    <color name="colorPrimaryDark">#111111</color>
 </resources>
