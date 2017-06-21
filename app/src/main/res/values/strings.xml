@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FirebaseAppFest</string>
+    <string name="app_name">FireBase StockUp</string>
     <string name="nothingToShow">Nothing To Show!</string>
     <string name="subscribeNow">Subscribe Now!</string>
     <string name="title_activity_home">HomeActivity</string>

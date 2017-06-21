@@ -29,6 +29,7 @@ public class StockListActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stock_list);
         firebasePresenter = new FirebasePresenter(StockListActivity.this);
+        getIntent();
         setViews();
         setAdapter();
 

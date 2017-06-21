@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.abhayalekal.firebaseappfest.Adapters.HomeAdapter;
 import com.example.abhayalekal.firebaseappfest.Objects.StockObject;
@@ -54,11 +55,13 @@ public class HomeActivity extends AppCompatActivity {
                 listType = "Watch List";
                 watchedList.clear();
                 watchedList.addAll(stocks);
+                homeAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void failure() {
 
+                Toast.makeText(HomeActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -69,10 +72,13 @@ public class HomeActivity extends AppCompatActivity {
                 listType = "My Stocks";
                 myStocksList.clear();
                 myStocksList.addAll(stocks);
+                homeAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void failure() {
+
+                Toast.makeText(HomeActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -84,18 +90,20 @@ public class HomeActivity extends AppCompatActivity {
                 for(int i =0; i<3; i++)
                 {
                     trendingList.add(stocks.get(i));
-                }
 
+                }
+                homeAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void failure() {
 
+                Toast.makeText(HomeActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
 
 
-        homeAdapter.notifyDataSetChanged();
+
     }
 
     private void setAdapter() {

@@ -29,6 +29,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="SIGN IN"
+        android:background="@color/primaryBlue"
+        android:textColor="@color/white"
+        android:textSize="20dp"
         android:id="@+id/sign_in_btn"/>
 
 
