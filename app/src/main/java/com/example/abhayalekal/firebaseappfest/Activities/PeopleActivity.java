@@ -62,7 +62,7 @@ public class PeopleActivity extends AppCompatActivity {
             public void success(ArrayList<User> users) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
-                    currentUser = new User(user.getEmail(), FirebaseInstanceId.getInstance().getToken());
+                    currentUser = new User(user.getEmail(), FirebaseInstanceId.getInstance().getToken(), FirebaseAuth.getInstance().getCurrentUser().getUid());
                     currentUser.usersFollowing.clear();
                     currentUser.usersFollowing.addAll(users);
 

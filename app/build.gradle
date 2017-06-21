@@ -12,8 +12,8 @@ android {
 
     signingConfigs {
         android {
-            //storeFile file('/Users/gunjit/Documents/GradeStack/one.keystore')
-            storeFile file('/Users/faheem/Desktop/one.keystore')
+            storeFile file('/Users/gunjit/Documents/GradeStack/one.keystore')
+            //storeFile file('/Users/faheem/Desktop/one.keystore')
             keyAlias 'one-learn'
             keyPassword 'onelearn123'
             storePassword 'onelearn123'

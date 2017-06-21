@@ -33,6 +33,7 @@ public class FirebasePresenter {
         this.context = context;
         keepSynced();
         gson = new Gson();
+     //   FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 

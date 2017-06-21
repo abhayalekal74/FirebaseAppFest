@@ -111,6 +111,7 @@ public class HomeAdapter extends DataBindAdapter {
 
     @Override
     public <T extends DataBinder> T getDataBinder(int viewType) {
-        return null;
+        return (T) dataBinderHashMap.get(viewType);
+
     }
 }
