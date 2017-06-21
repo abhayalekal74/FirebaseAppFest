@@ -6,17 +6,25 @@ import android.os.Parcelable;
 /**
  * Created by faheem on 21/06/17.
  */
-public class StockObject  implements Parcelable{
+public class StockObject implements Parcelable {
     public String id;
     public String name;
-    public String currentValue;
-    public String openValue;
+    public float currentValue;
+    public float openValue;
+    public float high;
+    public float low;
+    public int boughtCount;
+    public int soldCount;
 
     protected StockObject(Parcel in) {
         id = in.readString();
         name = in.readString();
-        currentValue = in.readString();
-        openValue = in.readString();
+        currentValue = in.readFloat();
+        openValue = in.readFloat();
+        high = in.readFloat();
+        low = in.readFloat();
+        boughtCount = in.readInt();
+        soldCount = in.readInt();
     }
 
     public static final Creator<StockObject> CREATOR = new Creator<StockObject>() {
@@ -40,7 +48,11 @@ public class StockObject  implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(name);
-        dest.writeString(currentValue);
-        dest.writeString(openValue);
+        dest.writeFloat(currentValue);
+        dest.writeFloat(openValue);
+        dest.writeFloat(high);
+        dest.writeFloat(low);
+        dest.writeInt(boughtCount);
+        dest.writeInt(soldCount);
     }
 }
