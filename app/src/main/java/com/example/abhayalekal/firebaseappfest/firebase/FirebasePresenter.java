@@ -19,9 +19,10 @@ public class FirebasePresenter {
     private static ArrayList<User> users;
     private final Context context;
 
-    FirebasePresenter(Context context) {
+    public FirebasePresenter(Context context) {
         this.context = context;
     }
+
 
     public void fetchAllStocks(final StocksFetchListener stocksFetchListener) {
         if (stocks != null) {
