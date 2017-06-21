@@ -50,9 +50,9 @@ public class HomeAdapter extends DataBindAdapter {
         watchListDataBinder = new MyStocksDataBinder(this, context, watchList, "Watch List");
         myStocksDataBinder = new MyStocksDataBinder(this, context, purchasedList, "My Stocks");
         trendingDataBinder = new MyStocksDataBinder(this, context, trendingList, "Trending List");
-        CardHeaderBinder cardHeaderbinderWatchedList = new CardHeaderBinder(this, listType, context);
-        CardHeaderBinder cardHeaderbinderTrending = new CardHeaderBinder(this, listType, context);
-        CardHeaderBinder cardHeaderbinderMyStocks = new CardHeaderBinder(this, listType, context);
+        CardHeaderBinder cardHeaderbinderWatchedList = new CardHeaderBinder(this, "Watched List", context);
+        CardHeaderBinder cardHeaderbinderTrending = new CardHeaderBinder(this, "Trending List", context);
+        CardHeaderBinder cardHeaderbinderMyStocks = new CardHeaderBinder(this, "My Stocks", context);
 
         dataBinderHashMap.put(NOTHING_TO_SHOW, nothingToShowDataBinder);
         dataBinderHashMap.put(NOTHING_TO_SHOW_IN_WATCH, nothingToShowDataBinderinWatchedList);

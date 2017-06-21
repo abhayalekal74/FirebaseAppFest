@@ -12,6 +12,7 @@ import com.example.abhayalekal.firebaseappfest.Objects.StockObject;
 import com.example.abhayalekal.firebaseappfest.R;
 import com.example.abhayalekal.firebaseappfest.firebase.FirebasePresenter;
 
+
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
@@ -98,7 +99,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setAdapter() {
-        homeAdapter = new HomeAdapter(HomeActivity.this, trendingList, watchedList, myStocksList, listType);
+        homeAdapter = new HomeAdapter(HomeActivity.this, trendingList, myStocksList, watchedList, listType);
 
     }
 
