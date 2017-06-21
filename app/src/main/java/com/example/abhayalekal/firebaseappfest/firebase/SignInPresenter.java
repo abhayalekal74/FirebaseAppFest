@@ -44,7 +44,7 @@ public class SignInPresenter {
                             Log.d("Firebase", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            User userObj = new User(email, FirebaseInstanceId.getInstance().getToken());
+                            User userObj = new User(email, FirebaseInstanceId.getInstance().getToken(), FirebaseAuth.getInstance().getCurrentUser().getUid());
 
 
                             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");

@@ -59,7 +59,7 @@ public class AppLauncherActivity extends AppCompatActivity {
             public void run() {
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
-                    AppLauncherActivity.this.startActivity(new Intent(AppLauncherActivity.this, HomeActivity.class));
+                    AppLauncherActivity.this.startActivity(new Intent(AppLauncherActivity.this, StockListActivity.class));
                 } else {
                     AppLauncherActivity.this.startActivity(new Intent(AppLauncherActivity.this, SignupActivity.class));
 
