@@ -1,5 +1,3 @@
-package com.example.abhayalekal.firebaseappfest.Adapters;
-
 import android.content.Context;
 
 import com.example.abhayalekal.firebaseappfest.Binders.CardHeaderBinder;
@@ -7,7 +5,7 @@ import com.example.abhayalekal.firebaseappfest.Binders.NothingToShowDataBinder;
 import com.example.abhayalekal.firebaseappfest.Objects.StockObject;
 import com.example.abhayalekal.firebaseappfest.dataBinder.DataBindAdapter;
 import com.example.abhayalekal.firebaseappfest.dataBinder.DataBinder;
-import com.example.abhayalekal.firebaseappfest.dataBinder.MyStocksDataBinder;
+import com.example.abhayalekal.firebaseappfest.dataBinder.MyStockDataBinder2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,14 +27,14 @@ public class HomeAdapter extends DataBindAdapter {
     private static final Integer HEADER_WATCHED = 89;
     public HashMap<Integer, DataBinder> dataBinderHashMap = new HashMap<>();
     NothingToShowDataBinder nothingToShowDataBinder;
-    MyStocksDataBinder watchListDataBinder;
-    MyStocksDataBinder myStocksDataBinder;
-    MyStocksDataBinder trendingDataBinder;
+    MyStockDataBinder2 watchListDataBinder;
+    MyStockDataBinder2 myStocksDataBinder;
+    MyStockDataBinder2 trendingDataBinder;
     CardHeaderBinder cardHeaderbinder;
     ArrayList<StockObject> watchList;
     ArrayList<StockObject> stockList;
     ArrayList<StockObject> trendingList;
-    String listType = "";
+    String listType = “”;
 
     public HomeAdapter(Context context, ArrayList<StockObject> trendingList, ArrayList<StockObject> purchasedList, ArrayList<StockObject> watchList, String listType) {
         this.watchList = watchList;
@@ -44,15 +42,15 @@ public class HomeAdapter extends DataBindAdapter {
         this.stockList = purchasedList;
         this.listType = listType;
 
-        NothingToShowDataBinder nothingToShowDataBinderinWatchedList = new NothingToShowDataBinder(this, "Watched List");
-        NothingToShowDataBinder nothingToShowDataBinderinMyStocks = new NothingToShowDataBinder(this, "My Stock");
-        NothingToShowDataBinder nothingToShowDataBinderinTrendingList = new NothingToShowDataBinder(this, "Trending List");
-        watchListDataBinder = new MyStocksDataBinder(this, context, watchList, "Watch List");
-        myStocksDataBinder = new MyStocksDataBinder(this, context, purchasedList, "My Stocks");
-        trendingDataBinder = new MyStocksDataBinder(this, context, trendingList, "Trending List");
-        CardHeaderBinder cardHeaderbinderWatchedList = new CardHeaderBinder(this, listType, context);
-        CardHeaderBinder cardHeaderbinderTrending = new CardHeaderBinder(this, listType, context);
-        CardHeaderBinder cardHeaderbinderMyStocks = new CardHeaderBinder(this, listType, context);
+        NothingToShowDataBinder nothingToShowDataBinderinWatchedList = new NothingToShowDataBinder(this, context,  “Watched List”);
+        NothingToShowDataBinder nothingToShowDataBinderinMyStocks = new NothingToShowDataBinder(this, context, “My Stock”);
+        NothingToShowDataBinder nothingToShowDataBinderinTrendingList = new NothingToShowDataBinder(this, context, “Trending List”);
+        watchListDataBinder = new MyStockDataBinder2(this, context, stockList, “Watch List”);
+        myStocksDataBinder = new MyStockDataBinder2(this, context, purchasedList, “My Stocks”);
+        trendingDataBinder = new MyStockDataBinder2(this, context, trendingList, “Trending List”);
+        CardHeaderBinder cardHeaderbinderWatchedList = new CardHeaderBinder(this, “Watched List”, context);
+        CardHeaderBinder cardHeaderbinderTrending = new CardHeaderBinder(this, “Trending List”, context);
+        CardHeaderBinder cardHeaderbinderMyStocks = new CardHeaderBinder(this, “My Stocks”, context);
 
         dataBinderHashMap.put(NOTHING_TO_SHOW, nothingToShowDataBinder);
         dataBinderHashMap.put(NOTHING_TO_SHOW_IN_WATCH, nothingToShowDataBinderinWatchedList);

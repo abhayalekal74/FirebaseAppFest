@@ -10,11 +10,7 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.SignupActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".Activities.PeopleActivity">
         </activity>
@@ -24,6 +20,16 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity
+            android:name=".Activities.AppLauncherActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <service
             android:name="com.example.abhayalekal.firebaseappfest.util.MyFirebaseMessagingService">
             <intent-filter>

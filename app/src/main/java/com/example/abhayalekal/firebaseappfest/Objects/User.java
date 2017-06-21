@@ -31,12 +31,7 @@ public class User implements Parcelable{
         return email != null ? email.equals(user.email) : user.email == null;
 
     }
-
-    @Override
-    public int hashCode() {
-        return email != null ? email.hashCode() : 0;
-    }
-
+    
     @Override
     public int describeContents() {
         return 0;
@@ -70,4 +65,9 @@ public class User implements Parcelable{
             return new User[size];
         }
     };
+
+    public int hashCode() {
+        return email != null ? email.hashCode() : 0;
+    }
+
 }
