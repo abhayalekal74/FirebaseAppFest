@@ -44,7 +44,7 @@ public class MyStocksDataBinder extends DataBinder<MyStocksDataBinder.ViewHolder
         holder.stockName.setText(stockList.get(position).name);
         holder.currentValue.setText(stockList.get(position).currentValue+"");
         holder.openingValue.setText(stockList.get(position).openValue+"");
-        float profit = stockList.get(position).currentValue - stockList.get(position).openValue;
+        float profit = Float.parseFloat(stockList.get(position).currentValue) - Float.parseFloat(stockList.get(position).openValue);
         if(profit<0)
         {
             holder.stockStatusImage.setImageDrawable(context.getResources().getDrawable(R.drawable.expand_plus));

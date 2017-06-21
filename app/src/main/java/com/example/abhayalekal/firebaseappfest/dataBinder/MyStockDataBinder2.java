@@ -56,7 +56,7 @@ public class MyStockDataBinder2 extends DataBinder<MyStockDataBinder2.ViewHolder
             stockName.setText(stockList.get(position).name);
             currentValue.setText(stockList.get(position).currentValue+"");
             openingValue.setText(stockList.get(position).openValue+"");
-            float profit = stockList.get(position).currentValue - stockList.get(position).openValue;
+            float profit = Float.parseFloat(stockList.get(position).currentValue) - Float.parseFloat(stockList.get(position).openValue);
             profitStatus.setText(profit+"");
         }
         holder.myStocksLayout.addView(view);

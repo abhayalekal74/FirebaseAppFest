@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.abhayalekal.firebaseappfest.Adapters.StockListAdapter;
 import com.example.abhayalekal.firebaseappfest.Objects.StockObject;
 import com.example.abhayalekal.firebaseappfest.R;
 import com.example.abhayalekal.firebaseappfest.firebase.FirebasePresenter;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -41,6 +43,9 @@ public class StockListActivity extends AppCompatActivity{
         firebasePresenter.fetchAllStocks(new FirebasePresenter.StocksFetchListener() {
             @Override
             public void success(ArrayList<StockObject> stocks) {
+
+                Log.e("-----", ""+new Gson().toJson(stocks));
+
                 StockListActivity.this.stockList.clear();
                 StockListActivity.this.stockList.addAll(stocks);
                 stockListAdapter.notifyDataSetChanged();

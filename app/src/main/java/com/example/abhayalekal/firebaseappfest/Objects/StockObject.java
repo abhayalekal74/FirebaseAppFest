@@ -9,22 +9,45 @@ import android.os.Parcelable;
 public class StockObject implements Parcelable {
     public String id;
     public String name;
-    public float currentValue;
-    public float openValue;
-    public float high;
-    public float low;
-    public int boughtCount;
-    public int soldCount;
+    public String currentValue;
+    public String openValue;
+    public String high;
+    public String low;
+    public String boughtCount;
+    public String soldCount;
 
-    public StockObject(Parcel in) {
+
+
+    public StockObject() {
+
+    }
+
+    protected StockObject(Parcel in) {
         id = in.readString();
         name = in.readString();
-        currentValue = in.readFloat();
-        openValue = in.readFloat();
-        high = in.readFloat();
-        low = in.readFloat();
-        boughtCount = in.readInt();
-        soldCount = in.readInt();
+        currentValue = in.readString();
+        openValue = in.readString();
+        high = in.readString();
+        low = in.readString();
+        boughtCount = in.readString();
+        soldCount = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(currentValue);
+        dest.writeString(openValue);
+        dest.writeString(high);
+        dest.writeString(low);
+        dest.writeString(boughtCount);
+        dest.writeString(soldCount);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<StockObject> CREATOR = new Creator<StockObject>() {
@@ -38,25 +61,4 @@ public class StockObject implements Parcelable {
             return new StockObject[size];
         }
     };
-
-    public StockObject() {
-
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(name);
-        dest.writeFloat(currentValue);
-        dest.writeFloat(openValue);
-        dest.writeFloat(high);
-        dest.writeFloat(low);
-        dest.writeInt(boughtCount);
-        dest.writeInt(soldCount);
-    }
 }
